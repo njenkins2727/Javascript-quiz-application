@@ -11,7 +11,7 @@
 <!-- -->
 
     <!-- START QUIZ BUTTON -->
-    <section>  
+    <section id="start-quiz">  
      <h1>Welcome to the Quiz</h1>
      <button id="start-button">Start</button>
     </section>
@@ -22,42 +22,42 @@
   <h1 id="question-title" > </h1>
  <!-- choices -->
  <ul id="question-choices">
-    <li> <button id="choice1" class="quiz-choice"></button> </li>
-    <li> <button id="choice2" class="quiz-choice"></button> </li>
-    <li> <button id="choice3" class="quiz-choice"></button> </li>
-    <li> <button id="choice4" class="quiz-choice"></button> </li>
+    <li> <button id="quiz-choice"></button> </li>
+    <li> <button id="quiz-choice"></button> </li>
+    <li> <button id="quiz-choice"></button> </li>
+    <li> <button id="quiz-choice"></button> </li>
  </ul>
 </section>
     <!-- TIMER -->
- <section></section>
- <h3 id="timer-section" class="hide"></h3>
+ <section>
+ <h3 id="timer-section" class="hide"> </h3>
  </section>
 
     <!-- end game HIGHSCORE -->
 <section id="scoreboard" class="hide">
 <h1>Gameover!</h1>    
-<p>your scoore is: <span id="result-span">10</span></p>
+<h4>Your score is -<span id="result-span"> </span></h4> 
 <!-- form to enter initials  & button to save -->
 <form  id="form-initials">
     <input type="text" placeholder="your initials here" id="initial-input" required>
-    <button type="submit">Save</button>
+    <button id="save-button" type="submit">Save</button>
+    <button> <a href="#">Restart</a> </button> 
+
 </form>
 
 </section>
 
 
-
 <!-- all high scores page -->
 <section id="highscore-section" class="hide">
-    <h1>Highscore</h1>
-
-    <ul>
+    <h1>Highscores</h1>
+    <ul id="highscore-list">
         <li class="highscore-items">Nathan - 20</li>
-        <li class="highscore-items">Ella - 15</li>
-        <li class="highscore-items">Seth - 25 </li>
+        <li class="highscore-items"></li>
+        <li class="highscore-items"></li>
     </ul>
 
-    <a href="#">Back to home</a>
+   <button> <a href="#">Restart</a> </button> 
 
 </section>
 

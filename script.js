@@ -1,15 +1,15 @@
 //get all required elements:
 const startBtn = document.getElementById("start-button");
+const startQuiz = document.getElementById("start-quiz");
 const timer = document.getElementById("timer-section");
 const quizSection = document.getElementById("quiz-questions");
 const questionTitle = document.getElementById("question-title");
-const choice1 = document.getElementById("choice1");
-const choice2 = document.getElementById("choice2");
-const choice3 = document.getElementById("choice3");
-const choice4 = document.getElementById("choice4");
+const questionChoices = document.getElementById("question-choices")
 const endGameSection = document.getElementById("scoreboard");
 const resultSpan = document.getElementById("result-span");
 const highscores = document.getElementById("highscore-section");
+const saveBtn = document.getElementById("save-button");
+const initialInput = document.getElementById("initial-input");
 
 //Questions for quiz
 const question = [
@@ -26,30 +26,30 @@ const question = [
       {
         title: "What is an Array?",
         answers: [
-          { text: "series of data", correct: false },
+          { text: "series of data", correct: true },
           { text: "A variable", correct: false },
-          { text: "<li>", correct: true },
+          { text: "<li>", correct: false },
           { text: "An index", correct: false }
         ]
       },
       
       {
-        title: "How do you show something in your web developer tool?",
+        title: "How do you print something in your web developer tool?",
         answers: [
-          { text: "<!-- -->", correct: false },
-          { text: "/*  */", correct: false },
-          { text: "//", correct: true },
-          { text: "''", correct: false }
+          { text: "console()", correct: false },
+          { text: "console.log()", correct: true },
+          { text: "log().console", correct: false },
+          { text: "cons.log()", correct: false }
         ]
       },
       
       {
-        title: "What is the for loop process",
+        title: "To insert a JavaScript into an HTML page, which tag is used?",
         answers: [
-          { text: "<!-- -->", correct: false },
-          { text: "/*  */", correct: false },
-          { text: "//", correct: true },
-          { text: "''", correct: false }
+          { text: "<java>", correct: false },
+          { text: "<js>", correct: false },
+          { text: "<javascript>", correct: false },
+          { text: "<script>", correct: true }
         ]
       },
       
@@ -67,8 +67,8 @@ const question = [
         title: "What is the == operator?",
         answers: [
           { text: "Equal to types and values", correct: false },
-          { text: "Equal to values", correct: false },
-          { text: "and", correct: true },
+          { text: "Equal to values", correct: true },
+          { text: "and", correct: false },
           { text: "or", correct: false }
         ]
       },
@@ -85,59 +85,87 @@ const question = [
       {
         title: "what is the result of: console.log(('b' + 'a' + + 'a' + 'a').toLowerCase());",
         answers: [
-          { text: "banana", correct: false },
+          { text: "banana", correct: true },
           { text: "baaa", correct: false },
           { text: "ananas", correct: true },
           { text: "bananaa", correct: false }
         ]
       },
     ]
+
+
+//Quiz functionality
+ function renderQuestion(questionIndex){
+
+//get question 
+const questions = question[questionIndex]
+
+//create structure
+//set question title 
+questionTitle.textContent = questions.title;
+
+//set choices 
+const choices = questions.answers;
+questionChoices.textContent = ""
+for (let index = 0; index < choices.length; index++) {
+    const choice = choices[index];
+
     
-//quiz functionality
-// let questionIndex = 0
+const li = document.createElement('li');
 
-// function nextQuestion (){
-//  questionIndex = questionIndex + 1
-//  displayQuestions();
-//  }
+const button = document.createElement('button');
 
-// function displayQuestions (){
-//     questionTitle.textContent = question[questionIndex].questionTitle;
-//     answers.textContent = question[questionIndex].answers[0];
-//     choice2.textContent = question[questionIndex].choices[1];
-//     choice3.textContent = question[questionIndex].choices[2];
-//     choice4.textContent = question[questionIndex].choices[3];
+button.setAttribute('class', 'quiz-choice');
+
+button.textContent = choice.text;
+
+button.addEventListener("click", function(event){
+
+// when i answer question 
+
+if(choice.correct === true){
+ // a. if user is correct = feedback correct 
+ console.log("right");
+
+}else{
+ // b. if user is wrong subtract 10 sec from the clock + feedback incorrect
+ timeLeft = timeLeft - 10;
+ console.log("wrong");
+}
+
+//when user clicks final question 
+const nextQuestionIndex = questionIndex + 1 ;
+
+if (nextQuestionIndex >= question.length){
+    //show end game screen
+
+     console.log(finalScore);
+    return endGame();
+}
+
+// show next question
+renderQuestion(nextQuestionIndex);
+
+});
+
+li.appendChild(button);
+
+questionChoices.append(li);
 
 
-//     answers.addEventListener("click", nextQuestion, function(event) {
-//         if (answers != question[questionIndex].answer){
-//             timeLeft = timeLeft - 10;
-//         }
-//         console.log(answers);
-//    });
+//final score 
+ let finalScore;
 
-//    choice2.addEventListener("click", nextQuestion, function(event) {
-//     choice2.textContent = choice2;
-// })
+   finalScore = timeLeft;
+   if (finalScore<0){
+       finalScore === 0;
+   }
 
-//    choice3.addEventListener("click",nextQuestion, function(event) {
-//    choice3.textContent = choice3;
-// })
+  //  resultSpan.textContent = finalScore.classList.remove("hide");
 
-//    choice4.addEventListener("click",nextQuestion, function(event) {
-//    choice4.textContent = choice4;
-// })
+}
+ }
 
-// }
-
-//help
-// function userSelection(question){
-//     let userAns = question[questionIndex].choices
-//     let correctAns = question[questionIndex].answer
-//     console.log(userAns);
-// }
-
-    // userSelection();
 
 //Endgame function
 function endGame(){
@@ -148,13 +176,35 @@ function endGame(){
     quizSection.classList.add("hide");
     //hide timer
     timer.classList.add("hide");
-    //stop timer
-    clearInterval(timerId);
+
+
+    // collect score 
+  //  let finalScore;
+
+  //  finalScore = timer;
+  //  if (finalScore<0){
+  //      finalScore === 0;
+  //  }
+
+  //   resultSpan = finalScore;
+
+
+
+    //collect name-input
+
+    //save button 
+    saveBtn.addEventListener("click", function(event){
+        event.preventDefault();
+        highscoreSection();
+    })
+
+
 }
 
-let timeLeft = 45;
 
  //Timer
+ let timeLeft = 55;
+
 function startTimer(){
 
 const timerId = setInterval(function (){
@@ -164,19 +214,22 @@ timeLeft = timeLeft - 1;
 timer.textContent = timeLeft;
 
 
- if (timeLeft === 0) { 
+ if (timeLeft <= 0) { 
+
   endGame();
-// highscores.classList.remove("hide");
+
+  clearInterval(timerId);
+
  }
 
  
 }, 1000);
 }
 
-// when i click start game 
+// When I click start game 
 startBtn.addEventListener("click", function(event){
 //remove start button
- startBtn.classList.add("hide");
+ startQuiz.classList.add("hide");
 
 // 1. start timer 
 //  a. if timer runs out show game over and return to start button
@@ -188,35 +241,20 @@ startTimer();
 // 2. start game ***
  // a. show question + 4 answers 
  quizSection.classList.remove("hide");
- displayQuestions();
-
+//  displayQuestions();
+renderQuestion(0);
 })
 
-// when i answer question 
-// show next question
-function nextQuestion (){
-    questionIndex = questionIndex + 1
-    displayQuestions();
-    }
 
-
-
-
- // a. if user is correct = feedback correct 
- // b. if user is wrong subtract 10 sec from the clock + feedback incorrect
-
-
-
- //when all questions are answered or timer runs out i receieve
- // 1. "Game Over!"
-
-//when user clicks final question 
-//show end game screen
-
+function highscoreSection(){
+    endGameSection.classList.add("hide");
+    highscores.classList.remove("hide");
+}
 
  // 2. score + save initial and score 
   //user hit enter key 
   // get user initial and highscore
   //save
+
 
   
