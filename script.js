@@ -279,13 +279,14 @@ function highscoreSection(){
 
     sortedHighscoreArray= sortHighscores();
 
-    const highscoreList = document.querySelector("highscore-items")
+    const highscoreList = document.querySelector("highscore-list")
 
     for (let i = 0; i < sortedHighscoreArray.length; i++) {
       let highscoreEntry = sortedHighscoreArray[i];
       let newListItem = document.createElement("li");
 
       newListItem.initialInput + " - " +  highscoreEntry.score;
+
       // highscoreList.append(newListItem);
 
     }
@@ -293,14 +294,10 @@ function highscoreSection(){
  // display from highest to lowest 
  function sortHighscores(){
    let highscoreArray = getHighscore();
-   if(!highscoreArray){
-     return;
-   }
+   highscoreArray.sort((a, b) => b.score - a.score);
 
-highscoreArray.sort(function(a, b){
-  return b.score - a.score;
-});
    return highscoreArray;
+
  }
  
 
