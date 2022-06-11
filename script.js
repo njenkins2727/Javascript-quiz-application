@@ -4,8 +4,8 @@ const quizSection = document.getElementById("quiz-questions");
 const timer = document.getElementById("timer-section");
 const endGameSection = document.getElementById("scoreboard");
 const highscores = document.getElementById("highscore-section");
-
 const startQuiz = document.getElementById("start-quiz");
+
 const questionTitle = document.getElementById("question-title");
 const questionChoices = document.getElementById("question-choices")
 const resultSpan = document.getElementById("result-span");
@@ -59,10 +59,10 @@ const question = [
       {
         title: "An API is..",
         answers: [
-          { text: "Application Programming Interface", correct: false },
-          { text: "Another Practice Interior", correct: false },
-          { text: "Application Programming Initiator", correct: true },
-          { text: "''", correct: false }
+          { text: "Application Programming Interface", correct: true },
+          { text: "Absolute Program Industry", correct: false },
+          { text: "Application Programming Initiator", correct: false },
+          { text: "Aggravated Patella Injury", correct: false }
         ]
       },
       
@@ -275,7 +275,6 @@ function highscoreSection(){
 
     
     //display users highscore (get from local storage)
-
     const sortedHighscoreArray= sortHighscores();
 
     const highscoreList = document.querySelector("highscore-list")
@@ -291,7 +290,6 @@ function highscoreSection(){
     }
 
 }
-
 
  // display from highest to lowest 
  function sortHighscores(){
@@ -309,13 +307,15 @@ function highscoreSection(){
    highscoreSection;
  }
 
- const restartButton = document.getElementById("#restart-button");
-
+ const restartButton = document.getElementById("restart-button");
+const resetButtton = document.getElementById("reset-button" );
  restartButton.addEventListener("click", restart);
+ resetButtton.addEventListener("click", restart);
 
  function restart(){
    addHide();
     startQuiz.classList.remove("hide");    
+    timeLeft = 45
    }
 
    function addHide(){
