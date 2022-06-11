@@ -1,16 +1,16 @@
 //get all required elements:
 const startBtn = document.getElementById("start-button");
-const startQuiz = document.getElementById("start-quiz");
-const timer = document.getElementById("timer-section");
 const quizSection = document.getElementById("quiz-questions");
+const timer = document.getElementById("timer-section");
+const endGameSection = document.getElementById("scoreboard");
+const highscores = document.getElementById("highscore-section");
+
+const startQuiz = document.getElementById("start-quiz");
 const questionTitle = document.getElementById("question-title");
 const questionChoices = document.getElementById("question-choices")
-const endGameSection = document.getElementById("scoreboard");
 const resultSpan = document.getElementById("result-span");
-const highscores = document.getElementById("highscore-section");
 const saveBtn = document.getElementById("save-button");
 const clearButton = document.querySelector("#clear-button");
-
 const initialInput = document.getElementById("initial-input");
 
 
@@ -59,9 +59,9 @@ const question = [
       {
         title: "An API is..",
         answers: [
-          { text: "<!-- -->", correct: false },
-          { text: "/*  */", correct: false },
-          { text: "//", correct: true },
+          { text: "Application Programming Interface", correct: false },
+          { text: "Another Practice Interior", correct: false },
+          { text: "Application Programming Initiator", correct: true },
           { text: "''", correct: false }
         ]
       },
@@ -179,7 +179,7 @@ function endGame(){
     saveBtn.addEventListener("click", storeScore);
 }
 
-//storing score put in saveBtnadventlistener('click', storescore)
+//storing scores
 function storeScore(event){
 
   event.preventDefault();
@@ -265,7 +265,6 @@ startTimer();
 // 2. start game ***
  // a. show question + 4 answers 
  quizSection.classList.remove("hide");
-//  displayQuestions();
 renderQuestion(0);
 })
 
@@ -277,7 +276,7 @@ function highscoreSection(){
     
     //display users highscore (get from local storage)
 
-    sortedHighscoreArray= sortHighscores();
+    const sortedHighscoreArray= sortHighscores();
 
     const highscoreList = document.querySelector("highscore-list")
 
@@ -287,10 +286,13 @@ function highscoreSection(){
 
       newListItem.initialInput + " - " +  highscoreEntry.score;
 
-      // highscoreList.append(newListItem);
+      highscoreList.append(newListItem);
 
     }
+
 }
+
+
  // display from highest to lowest 
  function sortHighscores(){
    let highscoreArray = getHighscore();
@@ -300,12 +302,26 @@ function highscoreSection(){
 
  }
  
+ clearButton.addEventListener("click", clearHighscores);
 
+ function clearHighscores(){
+   localStorage.clear();
+   highscoreSection;
+ }
 
-  //user hit enter key 
-  // get user initial and highscore
-  //save
+ const restartButton = document.getElementById("#restart-button");
 
+ restartButton.addEventListener("click", restart);
 
-  //save initial and score in local storage 
-  // localStorage.setItem("userName", initialInput[1].val()); 
+ function restart(){
+   addHide();
+    startQuiz.classList.remove("hide");    
+   }
+
+   function addHide(){
+    startQuiz.classList.add("hide");
+    quizSection.classList.add("hide");
+    timer.classList.add("hide");
+    endGameSection.classList.add("hide"); 
+    highscores.classList.add("hide");
+   }
