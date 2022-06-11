@@ -36,10 +36,10 @@
     <!-- end game HIGHSCORE -->
 <section id="scoreboard" class="hide">
 <h1>Gameover!</h1>    
-<h4>Your score is -<span id="result-span"> </span></h4> 
+<h4>Your score is <span id="result-span"> </span></h4> 
 <!-- form to enter initials  & button to save -->
 <form  id="form-initials">
-    <input type="text" placeholder="your initials here" id="initial-input" required>
+    <input name="initial-input" type="text" placeholder="your initials here" id="initial-input" required>
     <button id="save-button" type="submit">Save</button>
     <button> <a href="#">Restart</a> </button> 
 
@@ -52,11 +52,11 @@
 <section id="highscore-section" class="hide">
     <h1>Highscores</h1>
     <ul id="highscore-list">
-        <li class="highscore-items">Nathan - 20</li>
-        <li class="highscore-items"></li>
-        <li class="highscore-items"></li>
+        <li class="highscore-items hide"></li>
+        <li class="highscore-items hide"></li>
+        <li class="highscore-items hide"></li>
     </ul>
-
+   <button id="clear-button">Clear</button>
    <button> <a href="#">Restart</a> </button> 
 
 </section>

@@ -9,7 +9,10 @@ const endGameSection = document.getElementById("scoreboard");
 const resultSpan = document.getElementById("result-span");
 const highscores = document.getElementById("highscore-section");
 const saveBtn = document.getElementById("save-button");
+const clearButton = document.querySelector("#clear-button");
+
 const initialInput = document.getElementById("initial-input");
+
 
 //Questions for quiz
 const question = [
@@ -138,8 +141,6 @@ const nextQuestionIndex = questionIndex + 1 ;
 
 if (nextQuestionIndex >= question.length){
     //show end game screen
-
-     console.log(finalScore);
     return endGame();
 }
 
@@ -151,17 +152,8 @@ renderQuestion(nextQuestionIndex);
 li.appendChild(button);
 
 questionChoices.append(li);
+    
 
-
-//final score 
- let finalScore;
-
-   finalScore = timeLeft;
-   if (finalScore<0){
-       finalScore === 0;
-   }
-
-  //  resultSpan.textContent = finalScore.classList.remove("hide");
 
 }
  }
@@ -175,30 +167,62 @@ function endGame(){
     questionTitle.classList.add("hide");
     quizSection.classList.add("hide");
     //hide timer
-    timer.classList.add("hide");
+    timer.classList.add("hide");   
+
+    //users score + showing in result span 
+    if(timeLeft <= 0 ){
+      timeLeft = 0;
+    }
+    resultSpan.textContent = timeLeft;
+
+    //save button maybe make function(event store score)
+    saveBtn.addEventListener("click", storeScore);
+}
+
+//storing score put in saveBtnadventlistener('click', storescore)
+function storeScore(event){
+
+  event.preventDefault();
 
 
-    // collect score 
-  //  let finalScore;
+  //check for input 
+  if (!initialInput.value){
+    alert('Please enter your initials to save your highscore!');
+    return;
+  }
 
-  //  finalScore = timer;
-  //  if (finalScore<0){
-  //      finalScore === 0;
-  //  }
+  //store scores and initals in object 
+  let highscoreItems = {
+    initials: initialInput.value,
+    score: timeLeft,
+  };
+  if(highscoreItems.score <= 0 ){
+    highscoreItems.score = 0;
+  }
 
-  //   resultSpan = finalScore;
+  updatedHighscore(highscoreItems);
 
+  highscoreSection();
 
+}
 
-    //collect name-input
+//updates leaderboard stored in local storage 
+function updatedHighscore(highscoreItems){
+  let highscoreArray = getHighscore();
+  //append new highscore item to highscore array 
+  highscoreArray.push(highscoreItems);
+  localStorage.setItem("highscoreArray", JSON.stringify(highscoreArray));
+}
 
-    //save button 
-    saveBtn.addEventListener("click", function(event){
-        event.preventDefault();
-        highscoreSection();
-    })
-
-
+function getHighscore(){
+  let storedHighscore = localStorage.getItem("highscoreArray");
+    if (storedHighscore !== null) {
+      let highscoreArray = JSON.parse(storedHighscore);
+      return highscoreArray;
+    } else {
+      highscoreArray = [];
+    }
+    return highscoreArray;
 }
 
 
@@ -249,12 +273,42 @@ renderQuestion(0);
 function highscoreSection(){
     endGameSection.classList.add("hide");
     highscores.classList.remove("hide");
-}
 
- // 2. score + save initial and score 
+    
+    //display users highscore (get from local storage)
+
+    sortedHighscoreArray= sortHighscores();
+
+    const highscoreList = document.querySelector("highscore-items")
+
+    for (let i = 0; i < sortedHighscoreArray.length; i++) {
+      let highscoreEntry = sortedHighscoreArray[i];
+      let newListItem = document.createElement("li");
+
+      newListItem.initialInput + " - " +  highscoreEntry.score;
+      // highscoreList.append(newListItem);
+
+    }
+}
+ // display from highest to lowest 
+ function sortHighscores(){
+   let highscoreArray = getHighscore();
+   if(!highscoreArray){
+     return;
+   }
+
+highscoreArray.sort(function(a, b){
+  return b.score - a.score;
+});
+   return highscoreArray;
+ }
+ 
+
+
   //user hit enter key 
   // get user initial and highscore
   //save
 
 
-  
+  //save initial and score in local storage 
+  // localStorage.setItem("userName", initialInput[1].val()); 
