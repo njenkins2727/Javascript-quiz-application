@@ -277,15 +277,15 @@ function highscoreSection(){
     //display users highscore (get from local storage)
     const sortedHighscoreArray= sortHighscores();
 
-    const highscoreList = document.querySelector("highscore-list")
+    const highscoreList = document.querySelector("#highscore-list");
 
     for (let i = 0; i < sortedHighscoreArray.length; i++) {
       let highscoreEntry = sortedHighscoreArray[i];
       let newListItem = document.createElement("li");
 
-      newListItem.initialInput + " - " +  highscoreEntry.score;
-
       highscoreList.append(newListItem);
+
+      newListItem.initialInput + " - " +  highscoreEntry.score;
 
     }
 
@@ -308,14 +308,15 @@ function highscoreSection(){
  }
 
  const restartButton = document.getElementById("restart-button");
-const resetButtton = document.getElementById("reset-button" );
+ const resetButtton = document.getElementById("reset-button" );
+
  restartButton.addEventListener("click", restart);
  resetButtton.addEventListener("click", restart);
 
  function restart(){
    addHide();
-    startQuiz.classList.remove("hide");    
-    timeLeft = 45
+    startQuiz.classList.remove("hide");   
+    timeLeft = 55
    }
 
    function addHide(){
