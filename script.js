@@ -314,15 +314,5 @@ function highscoreSection(){
  resetButtton.addEventListener("click", restart);
 
  function restart(){
-   addHide();
-    startQuiz.classList.remove("hide");   
-    timeLeft = 55
-   }
-
-   function addHide(){
-    startQuiz.classList.add("hide");
-    quizSection.classList.add("hide");
-    timer.classList.add("hide");
-    endGameSection.classList.add("hide"); 
-    highscores.classList.add("hide");
+  window.location.reload();
    }

@@ -6,20 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 4 Quiz</title>
     <link rel="stylesheet" href="./style.css">
-</head>
+
 <body>
-<!-- -->
 
     <!-- START QUIZ BUTTON -->
-    <section id="start-quiz">  
+    <section id="start-quiz" class="start">  
      <h1>Welcome to the Quiz</h1>
-     <button id="start-button">Start</button>
+     <button id="start-button"> Start </button>
     </section>
 
   <!-- THE QUIZ -->
  <section id="quiz-questions" class="hide"> 
   <!-- title -->
-  <h1 id="question-title" > </h1>
+  <h1 id="question-title">  </h1>
  <!-- choices -->
  <ul id="question-choices">
     <li> <button id="quiz-choice"></button> </li>
@@ -39,9 +38,9 @@
 <h4>Your score is <span id="result-span"> </span></h4> 
 <!-- form to enter initials  & button to save -->
 <form  id="form-initials">
-    <input name="initial-input" type="text" placeholder="your initials here" id="initial-input" required>
+    <input name="initial-input" type="text" placeholder="your initials here" id="initial-input" >
     <button id="save-button" type="submit">Save</button>
-    <button> <a href="#">Restart</a> </button> 
+    <button id="restart-button" class="restart-button"> Restart </button> 
 
 </form>
 
@@ -52,12 +51,10 @@
 <section id="highscore-section" class="hide">
     <h1>Highscores</h1>
     <ul id="highscore-list">
-        <li class="highscore-items hide"></li>
-        <li class="highscore-items hide"></li>
-        <li class="highscore-items hide"></li>
+       
     </ul>
    <button id="clear-button">Clear</button>
-   <button> <a href="#">Restart</a> </button> 
+   <button id="reset-button" class="restart-button"> Restart </button> 
 
 </section>
 
