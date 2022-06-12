@@ -96,6 +96,48 @@ const question = [
       },
     ]
 
+    // When I click start game 
+startBtn.addEventListener("click", function(event){
+  //remove start button
+   startQuiz.classList.add("hide");
+  
+  // 1. start timer 
+  //  a. if timer runs out show game over and return to start button
+  timer.classList.remove("hide");
+  timer.textContent = timeLeft;
+  startTimer();
+  
+  
+  // 2. start game ***
+   // a. show question + 4 answers 
+   quizSection.classList.remove("hide");
+  renderQuestion(0);
+  })
+
+
+ //Timer
+ let timeLeft = 55;
+ function startTimer(){
+ 
+ const timerId = setInterval(function (){
+ 
+ timeLeft = timeLeft - 1;
+ 
+ timer.textContent = timeLeft;
+ 
+ 
+  if (timeLeft <= 0) { 
+ 
+   endGame();
+ 
+   clearInterval(timerId);
+ 
+  }
+ 
+  
+ }, 1000);
+ }
+ 
 
 //Quiz functionality
  function renderQuestion(questionIndex){
@@ -159,7 +201,7 @@ questionChoices.append(li);
  }
 
 
-//Endgame function
+//End-game function
 function endGame(){
     //show end game screen 
     endGameSection.classList.remove("hide");
@@ -213,82 +255,25 @@ function updatedHighscore(highscoreItems){
   highscoreArray.push(highscoreItems);
   localStorage.setItem("highscoreArray", JSON.stringify(highscoreArray));
 }
-
+//retreive highscores and initials 
 function getHighscore(){
-  let storedHighscore = localStorage.getItem("highscoreArray");
-    if (storedHighscore !== null) {
-      let highscoreArray = JSON.parse(storedHighscore);
-      return highscoreArray;
-    } else {
-      highscoreArray = [];
-    }
-    return highscoreArray;
+  let storedHighscore = JSON.parse(localStorage.getItem("highscoreArray")) || [];
+  return storedHighscore;
 }
 
-
- //Timer
- let timeLeft = 55;
-
-function startTimer(){
-
-const timerId = setInterval(function (){
-
-timeLeft = timeLeft - 1;
-
-timer.textContent = timeLeft;
-
-
- if (timeLeft <= 0) { 
-
-  endGame();
-
-  clearInterval(timerId);
-
- }
-
- 
-}, 1000);
-}
-
-// When I click start game 
-startBtn.addEventListener("click", function(event){
-//remove start button
- startQuiz.classList.add("hide");
-
-// 1. start timer 
-//  a. if timer runs out show game over and return to start button
-timer.classList.remove("hide");
-timer.textContent = timeLeft;
-startTimer();
-
-
-// 2. start game ***
- // a. show question + 4 answers 
- quizSection.classList.remove("hide");
-renderQuestion(0);
-})
-
-
+//Highscore screen 
 function highscoreSection(){
-    endGameSection.classList.add("hide");
-    highscores.classList.remove("hide");
-
-    
-    //display users highscore (get from local storage)
-    const sortedHighscoreArray= sortHighscores();
-
-    const highscoreList = document.querySelector("#highscore-list");
-
-    for (let i = 0; i < sortedHighscoreArray.length; i++) {
-      let highscoreEntry = sortedHighscoreArray[i];
-      let newListItem = document.createElement("li");
-
-      highscoreList.append(newListItem);
-
-      newListItem.initialInput + " - " +  highscoreEntry.score;
-
-    }
-
+   endGameSection.classList.add("hide");
+   highscores.classList.remove("hide");
+   //display users highscore (get from local storage)
+   const sortedHighscoreArray= sortHighscores();
+   const highscoreList = document.querySelector("#highscore-list");
+   for (let i = 0; i < sortedHighscoreArray.length; i++) {
+     let highscoreEntry = sortedHighscoreArray[i];
+     let newListItem = document.createElement("li");
+     newListItem.innerHTML = highscoreEntry.initials +" : "+highscoreEntry.score;
+     highscoreList.append(newListItem);
+   }
 }
 
  // display from highest to lowest 
@@ -300,18 +285,18 @@ function highscoreSection(){
 
  }
  
+ //Clearing Highscores buttons
  clearButton.addEventListener("click", clearHighscores);
-
  function clearHighscores(){
    localStorage.clear();
    highscoreSection;
  }
 
  const restartButton = document.getElementById("restart-button");
- const resetButtton = document.getElementById("reset-button" );
+ const restartTwoButtton = document.getElementById("reset-button" );
 
  restartButton.addEventListener("click", restart);
- resetButtton.addEventListener("click", restart);
+ restartTwoButtton.addEventListener("click", restart);
 
  function restart(){
   window.location.reload();
